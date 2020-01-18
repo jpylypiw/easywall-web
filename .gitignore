@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# easywall-web specials
+easywall_web/static/css/*.min.css
+easywall_web/static/css/font-awesome*
+easywall_web/static/fonts/*
+easywall_web/static/js/*.min.js
