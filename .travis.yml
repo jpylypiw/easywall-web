@@ -3,8 +3,13 @@ env:
     - CC_TEST_REPORTER_ID=0420725e8a6e7645e97731c17e72f96122dbf587e1a0ffb0dcb9b74dc56fa248
 language: python
 python:
+  - "3.4"
   - "3.5"
+  - "3.6"
   - "3.7"
+  - "3.8"
+  - "3.8-dev"
+  - "nightly"
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
@@ -18,3 +23,8 @@ script:
 after_script:
   - ./cc-test-reporter format-coverage -t coverage.py -o coverage/codeclimate.json coverage.xml
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi
+branches:
+  only:
+    - master
+notifications:
+  email: false
