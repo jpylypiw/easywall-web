@@ -39,7 +39,6 @@ setup(
     ],
     tests_require=[
         'pytest-cov',
-        'pytest-pythonpath',
         'pytest'
     ]
 )
