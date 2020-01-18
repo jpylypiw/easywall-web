@@ -1,0 +1,2 @@
+Flask
+-e git://github.com/jpylypiw/easywall.git#egg=easywall
