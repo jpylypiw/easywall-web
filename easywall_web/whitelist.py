@@ -19,7 +19,9 @@ def whitelist(saved=False):
 
 
 def whitelist_save():
-    """the function saves the whitelist rules into the corresponding rulesfile"""
+    """
+    the function saves the whitelist rules into the corresponding rulesfile
+    """
     utils = Webutils()
     if utils.check_login() is True:
         ipaddress = ""
