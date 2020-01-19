@@ -10,7 +10,7 @@ CONFIGFOLDER="config"
 CONFIGFILE="web.ini"
 WEBDIR="$SCRIPTPATH/web"
 TMPDIR="$WEBDIR/tmp"
-STEPS=11
+STEPS=8
 STEP=1
 
 if [ "$EUID" -ne 0 ]; then
@@ -84,17 +84,17 @@ function installDaemon() {
     SERVICEFILE="/lib/systemd/system/easywall-web.service"
     read -r -d '' SERVICECONTENT <<EOF
 [Unit]
-Description=easywall Web - The IPTables Interface WebInterface
+Description=easywall-web - web interface to control the easywall core application.
 Wants=network-online.target
 After=syslog.target time-sync.target network.target network-online.target
 
 [Service]
-ExecStart=/bin/bash easywall_web.sh
+ExecStart=/bin/bash easywall_web/easywall_web.sh
 WorkingDirectory=${SCRIPTPATH}
 Restart=always
 RestartSec=10
-StandardOutput=syslog
-StandardError=syslog
+StandardOutput=none
+StandardError=none
 SyslogIdentifier=easywall-web
 User=easywall
 Group=easywall
@@ -102,19 +102,18 @@ Group=easywall
 [Install]
 WantedBy=multi-user.target
 EOF
-    touch $SERVICEFILE
     echo "$SERVICECONTENT" >$SERVICEFILE
     systemctl daemon-reload
     systemctl enable easywall-web
 }
 
-read -r -n1 -p "Do you want to install easywall-web as a Daemon? [y,n]" DAEMON
+read -r -n1 -p "Do you want to install easywall-web as a self-starting daemon? [y,n]" DAEMON
 case $DAEMON in
-y | Y) printf "\\ninstalling service ...\\n" && installDaemon ;;
-n | N) printf "\\nNot installing Daemon.\\n" ;;
-*) printf "\\nNot installing Daemon.\\n" ;;
+y | Y) printf "\\ninstalling daemon ...\\n" && installDaemon ;;
+n | N) printf "\\nnot installing daemon.\\n" ;;
+*) printf "\\nnot installing daemon.\\n" ;;
 esac
 
-# Step 11
-echo "" && echo "($STEP/$STEPS) Please set a password for easywall Web" && ((STEP++))
-/usr/bin/python3 core/passwd.py
+# Step 8
+echo "" && echo "($STEP/$STEPS) please set a username and password for login into the webinterface" && ((STEP++))
+/usr/bin/env python3 easywall_web/passwd.py
