@@ -137,3 +137,5 @@ easywall_web/static/fonts/*.eot*
 easywall_web/static/fonts/*.svg*
 easywall_web/static/fonts/*.otf*
 easywall_web/static/js/*.min.js
+config/web.ini
+src
