@@ -6,18 +6,18 @@ import time
 import urllib
 from datetime import datetime, timezone
 
-import easywall.utility
-from easywall.config import Config
 from flask import session
-
-from defaultpayload import DefaultPayload
+from easywall.config import Config
+from easywall.utility import (create_folder_if_not_exists, file_get_contents,
+                              time_duration_diff)
+from easywall_web.defaultpayload import DefaultPayload
 
 
 class Webutils(object):
     """the class is called in the route modules and contains non route-specific functions"""
 
     def __init__(self):
-        self.cfg = Config("../config/config.ini")
+        self.cfg = Config("config/web.ini")
 
     def check_login(self):
         """the function checks if the user/session is logged in"""
@@ -36,7 +36,7 @@ class Webutils(object):
         payload.customcss = css
         payload.machine = self.get_machine_infos()
         payload.latest_version = self.cfg.get_value("VERSION", "version")
-        payload.current_version = utility.file_get_contents("../.version")
+        payload.current_version = file_get_contents("../.version")
         payload.commit_sha = self.cfg.get_value("VERSION", "sha")
         payload.commit_date = self.get_commit_date(self.cfg.get_value("VERSION", "date"))
         return payload
@@ -69,7 +69,7 @@ class Webutils(object):
                 tz=None).replace(
                     tzinfo=None)
         date2 = datetime.now()
-        return utility.time_duration_diff(date1, date2)
+        return time_duration_diff(date1, date2)
 
     def update_last_commit_infos(self):
         """
@@ -149,7 +149,7 @@ class Webutils(object):
             # workaround because the easywall dir is one dir up - this is not pretty
             if filepath.startswith("."):
                 filepath = "../" + filepath
-        utility.create_folder_if_not_exists(filepath)
+        create_folder_if_not_exists(filepath)
         return filepath + "/" + filename
 
     def get_rule_list(self, ruletype):
@@ -214,7 +214,7 @@ class Webutils(object):
                     tz=None).replace(
                         tzinfo=None)
             now = datetime.now()
-            return utility.time_duration_diff(mtime, now)
+            return time_duration_diff(mtime, now)
         else:
             return "never"
 

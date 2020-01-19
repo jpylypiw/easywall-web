@@ -4,19 +4,19 @@ import os
 from easywall.config import Config
 from easywall.log import Log
 from flask import Flask
+from easywall_web.apply import apply, apply_save
+from easywall_web.blacklist import blacklist, blacklist_save
+from easywall_web.custom import custom, custom_save
+from easywall_web.error import page_not_found
+from easywall_web.index import index
+from easywall_web.login import login_post, logout
+from easywall_web.options import options, options_save
+from easywall_web.ports import ports, ports_save
+from easywall_web.whitelist import whitelist, whitelist_save
 
-from apply import apply, apply_save
-from blacklist import blacklist, blacklist_save
-from custom import custom, custom_save
-from error import page_not_found
-from index import index
-from login import login_post, logout
-from options import options, options_save
-from ports import ports, ports_save
-from whitelist import whitelist, whitelist_save
 
 app = Flask(__name__)
-CFG = Config("../config/config.ini")
+CFG = Config("config/web.ini")
 
 
 @app.route('/')

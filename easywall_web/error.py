@@ -1,8 +1,7 @@
 """the module contains functions for custom error routes"""
 from flask import render_template
-
-from login import login
-from webutils import Webutils
+from easywall_web.login import login
+from easywall_web.webutils import Webutils
 
 
 def page_not_found(error):

@@ -3,8 +3,7 @@ import hashlib
 import platform
 
 from flask import redirect, render_template, request, session
-
-from webutils import Webutils
+from easywall_web.webutils import Webutils
 
 
 def login(message, messagetype):
