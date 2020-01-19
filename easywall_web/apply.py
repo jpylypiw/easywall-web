@@ -1,9 +1,8 @@
 """the module contains functions for the apply rules route"""
 from flask import render_template, request
 from easywall.utility import delete_file_if_exists
+from easywall_web.login import login
 from easywall_web.webutils import Webutils
-
-from login import login
 
 
 def apply(saved=False, step=1):

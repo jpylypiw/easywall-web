@@ -1,6 +1,5 @@
 """the module contains functions for the options route"""
 from flask import render_template, request
-
 from easywall_web.login import login
 from easywall_web.webutils import Webutils
 
