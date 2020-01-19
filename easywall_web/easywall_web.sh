@@ -39,7 +39,7 @@ while true; do
 done
 
 if [[ $DEBUG == true ]]; then
-    /usr/bin/env python3 app.py
+    /usr/bin/env python3 easywall_web/__init__.py
 else
     uwsgi --http-socket "$BINDIP:$BINDPORT" --need-plugin python3 --wsgi-file easywall_web/__init__.py --callable app --processes 4 --threads 2
 fi

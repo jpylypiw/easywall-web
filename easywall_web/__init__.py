@@ -115,14 +115,13 @@ def page_not_found_route(error):
     return page_not_found(error)
 
 
-# only debugging
 if __name__ == '__main__':
+    # debugging mode
     app.secret_key = os.urandom(12)
     PORT = int(CFG.get_value("WEB", "bindport"))
     HOST = CFG.get_value("WEB", "bindip")
     DEBUG = True
     app.run(HOST, PORT, DEBUG)
-
-# production mode
-if __name__ == 'uwsgi_file_app':
+else:
+    # production mode
     app.secret_key = os.urandom(12)
