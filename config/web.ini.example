@@ -1,0 +1,19 @@
+[LOG]
+level = info
+to_files = yes
+to_stdout = yes
+filepath = /var/log
+filename = easywall-web
+
+[WEB]
+username =
+password =
+bindip = 0.0.0.0
+bindport = 12227
+rules_tmp_path = ./rules
+
+[VERSION]
+version = 0
+sha = 0
+date = 0
+timestamp = 0
