@@ -3,7 +3,7 @@
 CONFIGFOLDER="config"
 CONFIGFILE="web.ini"
 SCRIPTPATH=$(dirname "$(readlink -f "$0")")
-CONFIGPATH="$SCRIPTPATH"/"$CONFIGFOLDER"
+CONFIGPATH="$SCRIPTPATH"/../"$CONFIGFOLDER"
 BINDIP=$(awk -F "=" '/bindip/ {print $2}' "$CONFIGPATH"/"$CONFIGFILE")
 BINDPORT=$(awk -F "=" '/bindport/ {print $2}' "$CONFIGPATH"/"$CONFIGFILE")
 DEBUG=false
