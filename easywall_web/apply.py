@@ -1,9 +1,9 @@
 """the module contains functions for the apply rules route"""
+from easywall.utility import delete_file_if_exists
+from easywall_web.webutils import Webutils
 from flask import render_template, request
 
-import easywall.utility
 from login import login
-from webutils import Webutils
 
 
 def apply(saved=False, step=1):
@@ -52,6 +52,6 @@ def apply_step_two():
         with open(filepath, mode='wt', encoding='utf-8') as acceptfile:
             acceptfile.write("true")
         for ruletype in ["blacklist", "whitelist", "tcp", "udp", "custom"]:
-            utility.delete_file_if_exists(utils.get_rule_file_path(ruletype, True))
+            delete_file_if_exists(utils.get_rule_file_path(ruletype, True))
     except Exception as exc:
         print("{}".format(exc))
