@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from flask import session
 from easywall.config import Config
 from easywall.utility import (create_folder_if_not_exists, file_get_contents,
-                              time_duration_diff)
+                              time_duration_diff, get_abs_path_of_filepath)
 from easywall_web.defaultpayload import DefaultPayload
 
 
@@ -36,7 +36,7 @@ class Webutils(object):
         payload.customcss = css
         payload.machine = self.get_machine_infos()
         payload.latest_version = self.cfg.get_value("VERSION", "version")
-        payload.current_version = file_get_contents("../.version")
+        payload.current_version = file_get_contents("{}/../.version".format(get_abs_path_of_filepath(__file__)))
         payload.commit_sha = self.cfg.get_value("VERSION", "sha")
         payload.commit_date = self.get_commit_date(self.cfg.get_value("VERSION", "date"))
         return payload
@@ -93,12 +93,12 @@ class Webutils(object):
         for example the object contains the last commit date and the last commit sha
         This function should not be called very often, because GitHub has a rate limit implemented
         """
-        url = "https://api.github.com/repos/jpylypiw/easywall/commits/master"
+        url = "https://api.github.com/repos/jpylypiw/easywall-web/commits/master"
         req = urllib.request.Request(
             url,
             data=None,
             headers={
-                'User-Agent': 'easywall Firewall by JPylypiw'
+                'User-Agent': 'easywall by github.com/jpylypiw/easywall-web'
             }
         )
         response = urllib.request.urlopen(req)
@@ -108,12 +108,12 @@ class Webutils(object):
         """
         the function retrieves the latest version from github and returns the version string
         """
-        url = "https://raw.githubusercontent.com/jpylypiw/easywall/master/.version"
+        url = "https://raw.githubusercontent.com/jpylypiw/easywall-web/master/.version"
         req = urllib.request.Request(
             url,
             data=None,
             headers={
-                'User-Agent': 'easywall Firewall by JPylypiw'
+                'User-Agent': 'easywall by github.com/jpylypiw/easywall-web'
             }
         )
         response = urllib.request.urlopen(req)
